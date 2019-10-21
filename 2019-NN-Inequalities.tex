@@ -1,0 +1,1866 @@
+%----------------------------------------------------------
+% Filename: NN-Inequalities-2019.tex
+% submitted to
+%----------------------------------------------------------
+
+
+ \documentclass[12pt]{article}
+
+ \usepackage{epsfig}       %for Postscript files
+ \usepackage{subfigure}    %for parallel figures
+ \usepackage{latexsym}
+ %\usepackage{dsfont}
+ \usepackage{graphicx}
+ \usepackage{amsfonts}
+ \usepackage{mathrsfs}
+ \usepackage{amsfonts}
+ %\usepackage{extarrows}
+ \usepackage{amssymb,amsthm,amsmath,amscd,fancybox,graphicx}
+ \usepackage{amssymb,amsmath,euscript}
+ %\usepackage[numbers,sort&compress]{natbib}
+ %\usepackage{epstopdf}
+ \usepackage{float}
+% \usepackage{refcheck}
+% \usepackage{datetime}
+ \usepackage{color}
+ \usepackage{rotating,enumerate}
+ \usepackage{tikz}
+ \usetikzlibrary{positioning}
+
+
+ \textheight=8.75in
+ \textwidth=6.25in
+ \topmargin=-.5in
+ \oddsidemargin=0.0in
+ \evensidemargin=0.0in
+ \renewcommand{\baselinestretch}{1.05}
+% \renewcommand{\Re}{{\rm I}\!  {\rm R}}
+% \renewcommand{\Cx}{{\rm I}\!  {\rm C}}
+
+ \renewcommand{\Re}{{\rm I}\! {\rm R}}
+ \newcommand{\Cx}{\mathds{C}}
+ \newcommand{\KK}{\mathds{K}}
+ \newcommand{\rn}{\Re^n}
+ \newcommand{\rl}{\Re^l}
+ \newcommand{\s}{{\cal S}}
+ \newcommand{\K}{{\cal K}}
+ \renewcommand{\H}{{\cal H}}
+ \newcommand{\MV}{\mathbb{V}}
+ \newcommand{\MW}{\mathbb{W}}
+ \newcommand{\ds}{\displaystyle}
+ \def \gret {\succeq_{_{{\cal K}^n}} }
+ \def \gre {\succ_{_{{\cal K}^n}} }
+ \def \less {\preceq_{_{{\cal K}^n}} }
+ \def \les {\prec_{_{{\cal K}^n}} }
+ \def \rla{\rangle}
+ \def \lla{\langle}
+ \def \eps {\epsilon}
+ \def \veps {\varepsilon}
+ \def \t{\theta}
+ \def \sgn {{\rm sgn}}
+ \def \beginproof{\par\noindent {\bf Proof.}\ \ }
+ \def \endproof{\hskip .5cm $\Box$ \vskip .5cm}
+ \def\reff#1{{\rm(\ref{#1})}}
+
+ \newcommand{\IK}{{\rm I}\!  {\rm K}}
+ \newcommand{\intK}{{\rm int} \IK}
+ \newcommand{\phif}{ \phi_{_{\rm F}} }
+ \newcommand{\phil}{ \phi_{_{\rm L}} }
+ \newcommand{\phifb}{ \phi_{_{\rm FB}} }
+ \newcommand{\psifb}{ \psi_{_{\rm FB}} }
+ \newcommand{\Phifb}{ \Phi_{_{\rm FB}} }
+ \newcommand{\Psifb}{ \Psi_{_{\rm FB}} }
+ \newcommand{\phinr}{ \phi_{_{\rm NR}} }
+ \newcommand{\psinr}{ \psi_{_{\rm NR}} }
+ \newcommand{\Psinr}{ \Psi_{_{\rm NR}} }
+ \newcommand{\phifbp}{ \phi_{_{\rm FB}}^p }
+ \newcommand{\phifdb}{ \phi_{_{\rm D-FB}}}
+ \newcommand{\phifdbp}{ \phi_{_{\rm D-FB}}^p }
+ \newcommand{\psifdbp}{ \psi_{_{\rm D-FB}}^p }
+ \newcommand{\psifbp}{ \psi_{_{\rm FB}}^p }
+ \newcommand{\phinrp}{ \phi_{_{\rm NR}}^p }
+ \newcommand{\psinrp}{ \psi_{_{\rm NR}}^p }
+ \newcommand{\psip}{ \psi_{p} }
+ \newcommand{\phip}{ \phi_{p} }
+ \newcommand{\Psip}{ \Psi_{p} }
+ \newcommand{\Phip}{ \Phi_{p} }
+ \newcommand{\phialpha}{ \phi_{\alpha, p} }
+ \newcommand{\Phialpha}{ \Phi_{\alpha, p} }
+ \newcommand{\psialpha}{ \psi_{\alpha, p} }
+ \newcommand{\Psialpha}{ \Psi_{\alpha, p} }
+ \newcommand{\phitheta}{ \phi_{\theta, p} }
+ \newcommand{\Psitheta}{ \Psi_{\theta, p} }
+
+
+%--------------------------------------- begin document ---------------------------------------
+ \begin{document}
+
+ \newtheorem{property}{Property}[section]
+ \newtheorem{proposition}{Proposition}[section]
+ \newtheorem{append}{Appendix}[section]
+ \newtheorem{definition}{Definition}[section]
+ \newtheorem{lemma}{Lemma}[section]
+ \newtheorem{theorem}{Theorem}[section]
+ \newtheorem{example}{Example}[section]
+ \newtheorem{corollary}{Corollary}[section]
+ \newtheorem{condition}{Condition}
+ \newtheorem{remark}{Remark}[section]
+ \newtheorem{assumption}{Assumption}[section]
+ \newtheorem{algorithm}{Algorithm}[section]
+ \newtheorem{problem}{Problem}[section]
+
+
+ \medskip
+
+ \begin{center}
+ {\large \bf Neural network for solving system of inequalities
+ based on systematically generated smoothing functions }
+
+ \vskip1cm
+
+
+ B. Saheya
+ \footnote{E-mail: saheya@imnu.edu.cn. The author's work is supported by National
+ Key R\&D Program of China (Award Number: 2017YFC1405605) and
+Natural science foundation of Inner Mongolia ( Award Number: 2019LH01001).} \\
+ College of Mathematical Science \\
+ Inner Mongolia Normal University \\
+ Hohhot 010022, Inner Mongolia, P. R. China.  \\
+
+
+ \vskip1cm
+
+
+% Tao Zhang
+% \footnote{E-mail: taozhang@imnu.edu.cn}\\
+% College of Mathematical Science \\
+% Inner Mongolia Normal University \\
+% Hohhot 010022, Inner Mongolia, P. R. China.  \\
+%
+%
+% \vskip 1cm
+%
+%
+ Jein-Shan Chen
+ %\footnote{Corresponding author. E-mail:jschen@math.ntnu.edu.tw. The author's work is supported by
+ % Ministry of Science and Technology, Taiwan.}
+ \\
+ Department of Mathematics  \\
+ National Taiwan Normal University \\
+ Taipei 11677, Taiwan.
+
+ \vskip1cm
+
+ Guoqing Chen
+ \footnote{Corresponding author. E-mail:cgq@imu.edu.cn. } \\
+ College of Mathematical Science \\
+ Inner Mongolia University \\
+ Hohhot 010021, Inner Mongolia, P. R. China.  \\
+
+ \medskip
+
+ September 21, 2019
+
+ \end{center}
+
+
+ \medskip
+
+ \noindent
+ {\bf Abstract} \
+ In this paper, we summarize several systematic ways of constructing smoothing
+ functions and illustrate 11 smoothing functions accordingly for plus function
+ which  include some new smoothing functions. Then, based on these systematically
+ generated  smoothing functions, a unified neural network model is proposed for
+ solving  system of inequalities. The issues regarding the equilibrium point, the
+ trajectory, and the stability properties of the  neural network are addressed.
+ Moreover, numerical experiments with comparison are presented, which suggests
+ what kind of smoothing functions work well along  with the neural network approach.
+
+
+ \vspace{0.8cm}
+
+ \noindent
+ {\bf Keywords.}\  System of inequalities, Neural network, Plus function, Smoothing method.
+
+ \medskip
+
+
+%---------------------------------------------------------------------------------------------- Section 1
+ \section{Introduction} \label{sec1}
+
+
+ In this paper, we are interested in finding a solution to system of inequalities
+  by neural network approach. The mathematical format of the system of inequalities is given by
+ \begin{equation} \label{INEQUALITY}
+ f(x) \leq 0,
+ \end{equation}
+ where $f(x)=( f_1(x),f_2(x),\cdots, f_n(x))^\mathrm{T}$,
+ $ x \in \Re^{n }$ and $f_i:\Re^{n } \rightarrow \Re, (i=1,2,\cdots,n)$ are
+ continuous differentiable mapping.
+ The system of inequalities have been paid much attention due to its many applications,
+ including data analysis, computer-aided design problems, image reconstructions etc.
+   \\
+
+The main idea of a class of important methods for solving inequalities \eqref{INEQUALITY} is to
+transform them into the following nondifferentiable equations via projection function
+\begin{equation}\label{plusf}
+  [f (x)]_+ = 0.
+\end{equation}
+Where $(x)_+ = (\max\{0,x_1\},\cdots, \max\{0, x_n\})^\mathrm{T}, x \in \rn$.
+
+ Iterative methods for nondifferentiable equations have been studied for decades, among these methods
+ smoothing methods and semismooth methods for nondifferentiable equations  have been studied extensively in the last few
+years. For the above nondifferentiable equation with  projection operator \eqref{plusf}, some smoothing functions have been proposed by scholars.  Huang \cite{HZ2008} gives a smoothing type algorithm to solving  \eqref{plusf}, a smoothing Newton method was designed by Fan \cite{fy18}, based on a new family smoothing function a nonmonotone Newton method was proposed by Chen \cite{Chen2016} for equalities and inequalities.
+
+ Basically, the main ideas for the aforementioned approaches can be categorized
+ as below.  The first one  is  to recast the system of inequalities (\ref{INEQUALITY}) as a system of nonsmooth equations
+ and then tackle with the nonsmooth equations by using nonsmooth Newton  algorithm \cite{Qi93} or
+ other subgradient approaches. The Second
+ one is transform it to smoothing equations and applying smoothing Newton algorithm \cite{QSZ00}.
+ In this paper,  neural network method is used to solve the system of inequalities (\ref{INEQUALITY}),
+  which is not found in other literatures.
+ \\
+
+ Now, we elaborate more about the idea of neural network approach. For many
+ practical applications, the real-time solutions of optimization problems are
+ mostly required. One possible and very promising approach to solving the real-time
+ optimization problem is to apply artificial neural networks. The neural networks
+ can be implemented using integrated circuits. Neural networks for optimization
+ were first introduced in the 1980s by Hopfield and Tank \cite{HT85, TH86}. Since
+ then, significant research results have been achieved for various optimization
+ problems, including linear programming \cite{ZUH95}, quadratic programming
+ \cite{BP93}, linear complementarity problems \cite{LQ99}, nonlinear complementarity
+ problem \cite{LQQ01} and nonlinear programming \cite{CU93}. In general, the
+ essence of neural network approach is to construct a nonnegative energy function
+ and establish a dynamic system that represents an artificial neural network.
+ A first order differential equation represents the dynamic system. Furthermore,
+ it is expected that the dynamic system will converge to its static state (or an
+ equilibrium point), which corresponds to the solution for the underlying
+ optimization problem, starting from an initial point.
+ \\
+
+ In this paper, we present systematical
+ ways about how to construct smoothing functions for system of inequalities \eqref{INEQUALITY}
+ and illustrate 11 smoothing functions accordingly. After that, we design a gradient descent
+ neural network model by using these 11 different smoothing functions. We not
+ only discuss the stability of the neural networks, but also give numerical comparison
+ for these smoothing functions.  The innovation of this paper is twofold.
+ Firstly, some new smoothing functions of projection functions are constructed by summing up
+ the smoothing methods. Secondly, the nonlinear system of inequalities is solved by neural network
+ approach. The third is  numerical comparison, which suggest what kind of smoothing functions work well
+ along with the neural network approach for system of  inequalities.
+ \\
+
+
+
+
+%---------------------------------------------------------------------------------------------- Section 2
+ \section{Preliminaries} \label{sec2}
+
+
+
+ By looking into the mathematical format of the \eqref{plusf}, it is clear that the plus
+  function $(x)_+$ is the key component. Indeed, the plus function
+ also plays an important role in a lot of applications, like machine learning and
+ image processing, etc. In particular, the plus
+  function $(x)_+$ is not
+ differentiable at $x=0$, which causes limits in analysis and application. To conquer
+ this hurdle, researchers consider smoothing methods and construct smoothing functions
+ for it.
+ The definition of smoothing function of plus function $(x)_+$ is given by following definition.
+%----------------------------------------------------------------------------------- Definition 2.1
+ \begin{definition}
+ If  $\phi(\mu, \cdot):\Re \to \Re$ with respect to
+ $(\alpha)_+$ satisfying
+ \begin{equation*} \label{condition}
+ \lim_{\mu \downarrow 0} \phi(\mu,\alpha) =(\alpha)_{+},
+ \end{equation*}
+ for all $\alpha\in \Re$. Then call $\phi(\mu, \cdot)$ a smoothing function of plus function $ (x)_+$.
+ \end{definition}
+
+ The smoothing technique has been exploited to solving problems in
+  machine learning, statistics, cone programming. These successful cases motivate a systematic
+  study of the smoothing approach. How to generate new smoothing functions?
+  What is a common property of smoothing functions of plus function ?
+  We summarize all possible ways to construct smoothing functions for plus
+  function $(x)_+$
+ as below. For more details, please refer to \cite{BM12, CM96, KR92, Nesterov05, QD02, VOY15}.
+ \\
+
+ \noindent
+ {\bf (1) Smoothing by the convex conjugate}
+
+ \medskip
+
+ Let $X$ be a real topological vector space, and let $X^{*}$ be the dual
+ space to $X$. For any function $f: {\rm dom} f  \to \Re$, its convex conjugate
+ $f^*: ({\rm dom}f)^* \to \Re$ is defined in terms of the supremum by
+ \[
+ f^*(y) := \sup_{x \in {\rm dom} f} \left \{x^T y - f(x) \right \}.
+ \]
+ In light of this, one can build up smooth approximation of $f$, denoted by $f_{\mu}$,
+ by adding strongly convex component to its dual $g:=f^*$, namely,
+ \[
+ f_{\mu}(x) = \sup_{z\in {\rm dom} g} \left \{z^T x - g(x) - \mu d(z) \right \}
+ = (g+\mu d)^*(x),
+ \]
+ for some $1$-strongly convex and continuous function $d(\cdot)$ (called proximity
+ function). Here, $d(\cdot)$ is $1$-strongly convex which satisfies
+ \[
+ d( (1-t)x + t y) \leq (1-t) d(x) + t d(y) - \frac{1}{2} t(1-t) \|x-y\|^2,
+ \]
+ for all $x, y$ and $t \in (0,1)$. Note that
+ \(
+ (x)_+ = \sup_{0 \leq z \leq 1 }zx.
+ \)
+ If we take $d(z):=z^2/2$, then the constructed smoothing function via conjugation
+ leads to
+ \begin{equation}\label{phi1}
+ \phi_1(\mu, x)=\sup_{0 \leq z \leq 1}\left\{ zx-\frac{\mu}{2}z^2 \right \}
+ = \left\{
+ \begin{array}{cl}
+  x -\ds \frac{\mu}{2},  &    x  \geq \mu\\
+ \frac{x^2}{2\mu},       & {\rm if} \ \  0 \leq x  \leq \mu, \\
+  0,                     &    x <0. \\
+ \end{array}
+ \right.
+ \end{equation}
+ Which is the Pinar-Zenios function \cite{PZ1995}.
+
+ Alternatively, choosing $d(y):=1-\sqrt{1-y^2}$
+ gives another smoothing function:
+ \begin{equation}\label{phi2}
+ \phi_2(\mu, x) =\left\{
+    \begin{array}{cl}
+            \sqrt{x^2+\mu^2}-\mu, &    x  > 0\\
+            0,                   &    x \leq 0.
+    \end{array}
+    \right.
+ \end{equation}
+\\
+
+ \noindent
+ {\bf (2) The Moreau proximal smoothing}
+
+ \medskip
+
+ Suppose that $\mathbb{E}$ is an Euclidean space and $f:\mathbb{E} \to (-\infty,\infty]$
+ is a closed and proper convex function. One natural tool for generating an approximate
+ smoothing function is through the use of the so-called proximal map introduced by Moreau
+ \cite{Mor65}. The Moreau proximal approximation yields a family of approximations
+ $\{ f^{\rm px}_{\mu}\}_{\mu >0}$ as below:
+ \begin{equation*}\label{moreau}
+ f^{\rm px}_{\mu}(x)=\inf_{u\in \mathbb{E}} \left\{ f(u)+\frac{1}{2\mu}\|u-x\|^2 \right\}.
+ \end{equation*}
+ It is known that the Moreau proximal approximation $f^{\rm px}_{\mu}(x)$ is convex
+ continuous, finite-valued, and differentiable with gradient $\nabla f^{\rm px}_{\mu}$
+ which is Lipschitz continuous with constant $\frac{1}{\mu}$, see \cite{Mor65}.
+ When applying the Moreau proximal smoothing way \cite{BM12} to construct the smoothing function
+ for the plus function $(x)_+$, we can obtain the Pinar-Zenios function\cite{PZ1995}  $\phi_1(\mu, x)$
+ defined by \eqref{phi1}.
+
+
+
+ \noindent
+ {\bf (3) Nesterov's smoothing}
+
+ \medskip
+
+ There is a class of nonsmooth convex functions considered in \cite{Nesterov05},
+ which is given by
+ \[
+ q(x)=\max\{ \lla u,Ax \rla - \phi(u) \, | \, u \in Q\}, \quad x \in \mathbb{E},
+ \]
+ where $\mathbb{E}$, $V$ are finite dimensional vector spaces, $Q \subseteq V^*$
+ is compact and convex, $\phi$ is a continuous convex function on $Q$, and
+ $A :\mathbb{E} \to V $ is a linear map.
+ The smooth approximation of $q$ suggested in \cite{Nesterov05} is described by
+ the convex function
+ \begin{equation*}\label{nesterov}
+ q_\mu(x) =\max \{ \lla u, Ax \rla -\phi(u)-\mu d(u) \, | \, u\in Q\},
+ \quad x \in \mathbb{E},
+ \end{equation*}
+ where $d(\cdot)$ is a prox-function for $Q$. It was proved in
+ \cite[Theorem 1]{Nesterov05} that the convex function $q_\mu(x)$ is $C^{1,1}(\mathbb{E})$.
+ More specifically, its gradient mapping is Lipschitz continuous with constant
+ $L_\mu= \ds \frac{\|A\|^2}{\sigma \mu}$ and the gradient is described by
+ $\nabla q_\mu(x)= A u_\mu(x)$, where $u_\mu(x)$ is the unique minimizer of \eqref{nesterov}.
+ \\
+
+ For the absolute value function $q(x) = (x)_+ $ with $x\in \Re^1$. Let $A=1$,
+ $b=0$, $\mathbb{E}=\Re^1$, $Q=\{u\in \Re^1 \, | \, 0 \leq u \leq 1\}$ and taking
+ $d(u):=\frac{1}{2}u^2$. Then, we have
+ \begin{eqnarray*}
+ q_\mu(x)
+    &=& \max_{u \in Q} \left\{ \langle Ax-b,u \rangle - \mu d(u)\, | \ \right \}
+    = \max_{u \in Q} \left\{ xu - \frac{\mu}{2}u^2 \right \}
+    = \left\{
+ \begin{array}{cl}
+    x -\frac{\mu}{2}, &  {\rm if} \  x > \mu, \\
+    \frac{x^2}{2\mu},  & {\rm if} \ 0 \leq x \leq \mu, \\
+    0,                 &  {\rm if} \  x < 0. \\
+  \end{array}
+    \right.
+ \end{eqnarray*}
+ As we see, it also yields the Pinar-Zenios function \cite{PZ1995} $\phi_1(\mu, x)$ defined
+ by \eqref{phi1}.
+ \\
+
+
+
+ \noindent
+ {\bf (4) The infimal-convolution smoothing technique}
+
+ \medskip
+
+ Suppose that $\mathbb{E}$ is a finite vector space and
+ $f, g:\mathbb{E} \to (-\infty,\infty]$. The infimal-convolution of $f$ and $g$,
+ $f \, \Box \, g : \mathbb{E} \to [-\infty, +\infty]$ is defined by
+ \[
+ (f \, \Box \, g)(x) = \inf_{y \in \mathbb{E}} \left \{ f(y)+g(x-y) \right \}.
+ \]
+ In light of the concept of infimal convolution, one can also construct smoothing
+ approximation functions. More specifically, we consider
+ $f : \mathbb{E} \to (-\infty,\infty]$ which is a closed proper convex
+ function and let $\omega : \mathbb{E} \to \mathbb{R} $ be a $C^{1,1}$
+ convex function with Lipschitz gradient constant $1/\sigma$ ($\sigma> 0$).
+ Suppose that for any $\mu >0$ and any $x \in \mathbb{E}$, the following
+ infimal convolution is finite:
+ \begin{equation*} \label{inf-cov}
+ f^{\rm ic}_\mu(x)
+ = \inf_{u\in \mathbb{E}} \left\{ f(u)+\mu \omega(\frac{x-u}{\mu}) \right \}
+ = (f \, \Box \, \omega_\mu) (x),
+ \end{equation*}
+ where $\omega_\mu(\cdot)=\mu\omega(\frac{\cdot}{\mu})$.
+ Then, $f^{\rm ic}_\mu$ is called the infimal-convolution $\mu$-smooth approximation
+ of $f$. In particular, when $\mu\in \Re_{++}$ and $p\in (1,+\infty)$, the
+ infimal convolution of a convex function and a power of the norm function is
+ obtained as below:
+ \begin{equation*}
+ f \, \Box \, \left( \frac{1}{\mu p}\|\cdot\|^p \right)
+ = \inf_{u\in \mathbb{E}} \left\{ f(u)+ (\frac{1}{\mu p}\|x-u\|^p) \right \}.
+ \end{equation*}
+
+ \noindent
+ For the plus function, it can be verified that
+ $f_\mu (x)=((\cdot)_+) \, \Box \, \left( \frac{1}{\mu *p}|\cdot|^p \right)$ is the
+ smoothing function of order $p$, i.e.,
+ \begin{equation}\label{phi-p}
+ \phi^{(p)} (\mu, x)= f_\mu (x) = \left\{
+ \begin{array}{cll}
+ x-\frac{p-1}{p}\mu^{\frac{1}{p-1}}, & {\rm if} & x > \mu^{\frac{1}{p-1}}, \\
+ \frac{x^p}{\mu p},                & {\rm if} & 0 \leq x \leq  \mu^{\frac{1}{p-1}},\\
+  0,                                 & {\rm if} & x<0.
+ \end{array}
+ \right.
+ \end{equation}
+
+ Note that when $p = 2$ in the above expression \eqref{phi-p}, the smoothing function
+ of order $p$ reduces to the Pinar-Zenios function $\phi_1(\mu, x)$ as shown in \eqref{phi1}.
+
+ Figure \ref{p-order-smoothr} depicts the smoothing function of order $p$ with various value
+ of $p$. It can be observed from the Figure \ref{p-order-smoothr} that the smoothing curve is
+ further and further away from plus function as $p$ increases.
+ To the contrast, plugging $p = 2$ into infimal-convolution formula
+ yields the Moreau approximation \eqref{moreau}. For more details
+ about infimal-convolution and its induces approximation functions, please refer to
+ \cite{BM12, BC2016}.
+
+
+
+ \begin{figure}
+ \centering
+ \includegraphics[scale=0.6]{p-oder-smooth-function.pdf}\\
+ \caption{ $(x)_+$ and smoothing function of order $p$ ($\mu=0.3$).}\label{p-order-smoothr}
+ \end{figure}
+
+
+
+ \noindent
+ {\bf (5) The convolution smoothing technique}
+
+ \medskip
+
+ The smoothing approximation via convolution for the plus function
+ is a popular way, which can be found in \cite{CM96, KR92, QD02, VOY15}. Its
+ construction idea is described as follows. First, one constructs a smoothing
+ approximation for the plus function $(x)_+ = \max\{0,x\}$. To this end, we
+ consider the piecewise continuous function $d(x)$ with finite number of pieces
+ which is a density (kernel) function, that is, it satisfies
+ \[
+ d(x)\geq 0 \quad {\rm and} \quad \int_{-\infty}^{+\infty}d(x)dx = 1.
+ \]
+ Next, define $\hat{s}(\mu, x) := \frac{1}{\mu}d\left(\frac{x}{\mu}\right)$,
+ where $\mu$ is a positive parameter. Suppose that
+ $\int_{-\infty}^{+\infty}\left|x\right|d(x)dx < +\infty$, then a smoothing
+ approximation (denoted by $\hat{p}(\mu, x)$) for $(x)_+$ is obtained as below:
+ \begin{equation*}
+ \hat{p}(\mu, x) = \int_{-\infty}^{+\infty}(x-s)_+\hat{s}(\mu, s)ds
+ = \int_{-\infty}^{x}(x-s)\hat{s}(\mu, s)ds.
+ \end{equation*}
+ There are some well-known kernel functions
+
+  \begin{eqnarray*}
+   d_1(x) & =&
+ \left\{
+ \begin{array}{clc}
+ 1 & \rm{if} \; 0\leq x \leq 1,\\
+ 0 & \rm{otherwise}.
+ \end{array}
+ \right.
+ d_2(x) = \frac{e^{-x}}{(1+e^{-x})^2},  \\
+ d_3(x) & =&
+ \left\{
+ \begin{array}{clc}
+ 1 & \rm{if} \; -\frac{1}{2}\leq x \leq \frac{1}{2},\\
+ 0 & \rm{otherwise},
+ \end{array}
+ \right.
+ d_4(x) = \frac{2}{(x^2 + 4)^{\frac{3}{2}}}, \\
+ \end{eqnarray*}
+  From  $d_1(x)$  we can also derive  Pinar-Zenios function $\phi_1$ defined by \eqref{phi1}.
+ Based on kernel functions $d_2(x), d_3(x), d_4(x)$ , we obtain following  smoothing functions for the plus function \cite{CM96, QD02}:
+ \begin{eqnarray}
+  {\phi}_3(\mu, x) &=& x + \mu
+ \log \begin{pmatrix}
+ 1 + e^{-\frac{x}{\mu}} \\
+ \end{pmatrix}. \label{phi3} \\
+ {\phi}_4(\mu, x) &=&
+ \left\{
+ \begin{array}{cll}
+ x & {\rm if} & x \geq \frac{\mu}{2}, \\
+ \frac{1}{2\mu}\left(x + \frac{\mu}{2}\right)^2 & {\rm if} & -\frac{\mu}{2} < x < \frac{\mu}{2}, \\
+ 0 & {\rm if} & x\leq -\frac{\mu}{2}.
+ \end{array}
+ \right. \label{phi4} \\
+  {\phi}_5(\mu, x) &=& \frac{\sqrt{4\mu^2 + x^2} + x}{2}. \label{phi5}
+ \end{eqnarray}
+The function $\phi_3$  is called the neural networks smooth function \cite{CM96} ,
+the function $\phi_4$  is called the Zang smooth function \cite{CM96,Zang1980} and
+the function $\phi_5$  is called the Chen-Harker-Kanzow-Smale smooth function \cite{CM96, CH1993}.
+
+\noindent
+ {\bf (6) Smoothing by epigraph}
+
+ \medskip
+
+We consider the  maximum function
+\[
+ f(x) = \max_{i \in I}f_i(x),
+\]
+where $f_i(x)\in C^k(\rn)$. The maximum function $f$ is in general not differentiable.
+One kind of approach is  replace the minimization of $f $ by means of the minimization
+of the linear function $y$ on the epigraph of $f$. Therefore, the nonsmooth unconstrained
+minimization problem is replaced by a smooth, but constrained minimization. A barrier
+(interior approximation) for the $epi(f)$ constrained is constructed by
+\[
+\prod_{i\in I}\left ( y - f_i(x)\right ) \geq \mu, \ (\mu > 0),
+\]
+or, equivalently form
+\[
+\sum_{i\in I}\log \left ( y - f_i(x)\right ) \geq \log(\mu), \ (\mu > 0).
+\]
+
+From this we get a function $f_\mu$ whose graph lies in the interior of $epi(f)$
+and which is defined by
+\[
+\sum_{i\in I}\log \left ( y - f_i(x)\right ) = \log(\mu).
+\]
+It is  shown that $f_\mu$  is a  $C^k$-function and have some good
+property \cite{GuerraVazquez2001}.
+For function $(x)_+ = \max(0,x)$, we get the smoothing function
+
+\begin{equation*}
+f_\mu = \frac{x}{2} + \sqrt{\mu + \frac{x^2}{4}}.
+\end{equation*}
+Which is the smoothing function $\phi_5(\mu,x)$ defined by \eqref{phi5}.
+
+
+ \noindent
+ {\bf (7) Indirect smoothing technique}
+
+ \medskip
+ On the other hand, we can smooth out the plus function by looking at
+ other smoothing functions in relation to the plus function.  For
+ example, we can use the relationship between the absolute value
+ function and the plus function,i.e.,$(x)_+ = \frac{x + |x|}{2}$.
+ In reference \cite{saheya2019}, eight  smoothing functions of
+ absolute value functions are given. From this we can get eight
+ smoothing functions for plus function. In addition to the
+ functions or very similar functions that we have constructed
+ in the previous sections, there are several new functions
+ as following
+ \begin{eqnarray}
+ \phi_6(\mu, x) &=&  \frac{1}{2}(x + \mu \log \left( \cosh \left( \frac{x}{\mu} \right) \right)). \label{phi6}\\
+ \phi_7(\mu, x) &=&  \frac{1}{2}(x + \mu \left [ \log \left( 1 + e^{-\frac{x}{\mu}} \right) +
+                \log \left( 1 + e^\frac{x}{\mu} \right)  \right] ). \label{phi7}  \\
+ \phi_8(\mu, x)
+ &=& \left \{
+ \begin{array}{cll}
+  x& {\rm if} & x \geq \frac{\mu}{2}, \\
+  \frac{1}{2}(x + \frac{x^2}{\mu} + \frac{\mu}{4}) & {\rm if} & -\frac{\mu}{2} < x < \frac{\mu}{2}, \\
+  0 & {\rm if} & x \leq -\frac{\mu}{2}.
+ \end{array}
+ \right. \label{phi8}  \\
+ \phi_9(\mu, x) &=&
+ \left\{
+ \begin{array}{cll}
+  x& {\rm if} &  x > \mu, \\
+  \frac{1}{2}(x -\frac{x^4}{8\mu^3} + \frac{3x^2}{4\mu} + \frac{3\mu}{8} )& {\rm if} &  -\mu \leq x \leq \mu, \\
+  0 & {\rm if} & x < -\mu.
+ \end{array}
+ \right. \label{phi9}  \\
+ \phi_{10}(\mu, x) &=&  \frac{1}{2}(x + x \, {\rm erf} \left(\frac{x}{\sqrt{2}\mu}\right)
+                + \sqrt{\frac{2}{\pi}}\mu e^{-\frac{x^2}{2\mu^2}}). \label{phi10}
+\end{eqnarray}
+
+
+ \begin{figure}
+ \centering
+ \includegraphics[scale=0.6]{All-Smooth.pdf}\\
+ \caption{The graphs of $(x)_+$ and the smoothing functions $\phi_i, i=1,\cdots,10$
+ ($\mu=0.4$).}\label{All-Smooth}
+ \end{figure}
+
+
+
+ To sum up, we have 11 smoothing functions in total through the above
+ constructions. Figure \ref{All-Smooth} depicts the graphs of all the
+ aforementioned smoothing functions $\phi_i$, $i=1,\cdots,10$, $p$-order
+ smoothing function $\phi^{(p)}, (p=1.5)$ and the plus function. Not only
+ from the geometric view, $\phi_i$, $i=1,\cdots,10$ and $\phi^{(p)}$ are clearly smoothing
+ functions of $(x)_+$, it can be also verified theoretically
+ in Proposition \ref{Proposition 2.1}.
+\medskip
+
+%---------------------------------------------------------------------------------- Proposition 2.1
+ \begin{proposition} \label{approximationBound}
+ Let $\phi_i:\Re^2 \to \Re$ for $i=1,\ldots, 10$, $\phi^{(p)}$ be defined as in
+ \eqref{phi1}--\eqref{phi10}, respectively and  $\mu >0$ .
+ Then, we have
+    \begin{description}
+    \item[(i)]  $\phi_{i}$ is continuously differentiable at
+                $(\mu, x) \in \Re_{++} \times \Re$;
+    \item[(ii)] $\ds \lim_{\mu \downarrow 0} \phi_{i} (\mu, x)=(x)_+$.
+    \item[(iii)] $ \frac{\partial \phi_i(\mu,t)}{t} \geq 0,  \forall \mu >0.$
+%    \item[(iv)] If $t_1 \leq t_2$, then $\phi(\mu, t_1) \leq \phi(\mu, t_2)$.
+    \item[(iv)]  If $\phi \in \{\phi_3,\phi_4, \phi_5, \phi_7, \phi_8, \phi_9, \phi_{10} \}$,
+                then $\phi(\mu,t) > (x)_+$, and if $\phi \in \{\phi_1, \phi_2, \phi_6, \phi^{(p)}\}$,
+                then $\phi(\mu,t) < (x)_+$.
+    \item[(v)] For $0< \mu_1 < \mu_2$, If $\phi \in \{\phi_3,\phi_4, \phi_5, \phi_7, 
+                \phi_8, \phi_9, \phi_{10} \}$, then $\phi(\mu_1,t) < \phi(\mu_2,t)$, and
+                if $\phi \in \{\phi_1, \phi_2, \phi_6, \phi^{(p)}\}$, then  $\phi(\mu_1,t) > \phi(\mu_2,t)$.
+    \item[(vi)] the following inequalities are true
+            \begin{eqnarray*}
+                    0 &\leq & \max \{0,x\} -\phi_1(\mu,x)  \leq \frac{\mu}{2},\\
+                    0 &\leq & \max \{0,x\} -\phi_2(\mu,x)  \leq \mu,\\
+                    0 &\leq & \phi_3(\mu,x)-\max \{0,x\}  \leq \mu \ln 2,\\
+                    0 &\leq & \phi_4(\mu,x)-\max \{0,x\}  \leq \frac{\mu }{8},\\
+                    0 &\leq & \phi_5(\mu,x)-\max \{0,x\}  \leq \mu, \\
+                    0 &\leq & \max \{0,x\} -\phi_6(\mu,x)  \leq  \frac{\mu}{2} \ln 2,\\
+                    0 &\leq & \phi_7(\mu,x)-\max \{0,x\}  \leq  \mu \ln 2, \\
+                    0 &\leq & \phi_8(\mu,x)-\max \{0,x\}  \leq  \frac{\mu}{8}, \\
+                    0 &\leq & \phi_9(\mu,x)-\max \{0,x\}  \leq  \frac{3\mu}{16}, \\
+                    0 &\leq & \phi_{10}(\mu,x)-\max \{0,x\}  \leq  \frac{\mu}{\sqrt{2\pi}}, \\
+                    0 &\leq & \max \{0,x\} -\phi^{(p)}(\mu,x)  \leq \frac{p-1}{p}\mu^{\frac{1}{p-1}}.
+            \end{eqnarray*}
+    \end{description}
+ \end{proposition}
+
+ \beginproof
+ The proof is straightforward and we omit it.
+ \endproof
+
+
+From the Proposition \ref{approximationBound} and Figure \ref{All-Smooth}, we see that the local behavior of all 11 smoothing functions can be described as follow.
+ \begin{equation}\label{relation-phi}
+ \phi_2 \leq \phi_1  \leq \phi_6 \leq \phi^{(p)} \leq (x)_+  \leq \phi_4 \approx \phi_8  \leq \phi_9 \leq \phi_{10} \leq \phi_7 \approx
+ \phi_3 \leq \phi_5.
+ \end{equation}
+
+
+ We can divide the above functions into three categories. The first class is approximated
+ by the Plus function from above, and in this class we have the smoothing functions
+ $\phi_4 , \phi_8  , \phi_9 , \phi_{10} , \phi_7 , \phi_3 , \phi_5$. The second type
+ approximates the plus function from below and has the same value as the plus function when $x$ is less than $0$.
+ This class contains smoothing function $ \phi_2 , \phi_1 ,  \phi^{(p)}$. The third class include
+ only function $\phi_6$, which is characterized by an approximation from below but coincidences with only one zero point of plus function.
+
+
+ \medskip
+
+
+ Next, we recall some materials about first order differential equations (ODE):
+ \begin{equation} \label{ODE}
+ \dot{w}(t)=H(w(t)),\ w(t_0)=w_0\in \Re^n,
+ \end{equation}
+ where $H: \Re^n \to \Re^n$ is a mapping. We also introduce three kinds
+ of stability that will be discussed later. These materials can be
+ found in usual ODE textbooks.
+
+ \medskip
+
+%----------------------------------------------------------------------------------- Definition 2.1
+ \begin{definition}
+ A point $w^*=w(t^*)$ is called an equilibrium point or a steady
+ state of the dynamic system (\ref{ODE}) if $H(w^*)=0.$ If there is
+ a neighborhood $\Omega^*\subseteq \Re^n$ of $w^*$ such that
+ $H(w^*)=0$ and $H(w)\neq 0$ $\forall w\in \Omega^*\setminus\{w^*\}$, then
+ $w^*$ is called an isolated equilibrium point.
+ \end{definition}
+
+ \medskip
+
+%---------------------------------------------------------------------------------------- Lemma 2.1
+ \begin{lemma} \label{wdomaim}
+ Assume that $H: \Re^n \to \Re^n$ is a continuous mapping. Then, for any
+ $t_0>0$ and $w_0\in \Re^n$, there exists a local solution $w(t)$ for
+ (\ref{ODE}) with $t\in [t_0,\tau)$ for some $\tau>t_0.$ If, in
+ addition, $H$ is locally Lipschitz continuous at $x_0$, then the
+ solution is unique; if $H$ is Lipschitz continuous in $\Re^n$, then
+ $\tau$ can be extended to $\infty$.
+ \end{lemma}
+
+
+ If a local solution defined on $[t_0,\tau)$ cannot be extended to a
+ local solution on a larger interval $[t_0,\tau_1)$, $\tau_1>\tau,$
+ then it is called a maximal solution, and the interval $[t_0,\tau)$
+ is the maximal interval of existence. Clearly, any local solution
+ has an extension to a maximal one. We denote $[t_0, \tau(w_0))$ by
+ the maximal interval of existence associated with $w_0$.
+
+
+ \medskip
+
+%---------------------------------------------------------------------------------------- Lemma 2.2
+ \begin{lemma}\label{limmaxsolution}
+ Assume that $H: \Re^n \to \Re^n$ is continuous. If $w(t)$ with
+ $t\in [t_0, \tau(w_0))$ is a maximal solution and $\tau(w_0)<\infty$,
+ then $\ds \lim_{t\uparrow\tau(w_0)}\|w(t)\|=\infty.$
+ \end{lemma}
+
+ \medskip
+
+%----------------------------------------------------------------------------------- Definition 2.2
+ \begin{definition} (Stability in the sense of Lyapunov)
+ Let $w(t)$ be a solution for (\ref{ODE}). An isolated equilibrium point
+ $w^*$ is Lyapunov stable if for any $w_0=w(t_0)$ and any  $\varepsilon >0$,
+ there exists a $\delta>0$ such that $\|w(t)-w^*\|<\varepsilon$ for all
+ $t\geq t_0$ and $\|w(t_0)-w^*\|<\delta$.
+ \end{definition}
+
+ \medskip
+
+%----------------------------------------------------------------------------------- Definition 2.3
+ \begin{definition} (Asymptotic Stability)
+ An isolated equilibrium point $w^*$ is said to be asymptotic stable
+ if in addition to being Lyapunov stable, it has the property that
+ $w(t)\to w^*$ as $t\to \infty$ for all $\|w(t_0)-w^*\| < \delta$.
+ \end{definition}
+
+ \medskip
+
+%------------------------------------------------------------------------------- Definition 2.4
+ \begin{definition} (Lyapunov function)
+ Let $\Omega \subseteq \Re^n$ be an open neighborhood of $\bar{w}$.
+ A continuously differentiable function $V:\Re^n\to \Re$ is said to
+ be a Lyapunov function at the state $\bar{w}$ over the set $\Omega$
+ for equation (\ref{ODE}) if
+ \begin{equation} \label{Lfunction}
+ \left\{
+ \begin{array}{ll}
+ V(\bar{w})=0,\ V(w)>0,\ \forall w\in\Omega\setminus\{\bar{w}\}, \\
+ \dot{V}(w)\leq 0,\ \forall w\in\Omega\setminus\{\bar{w}\}.
+ \end{array}\right.
+ \end{equation}
+ \end{definition}
+
+ \medskip
+
+%----------------------------------------------------------------------------------------- Lemma 2.3
+ \begin{lemma} \label{stablecondition}
+ \begin{description}
+ \item[(a)] An isolated equilibrium point $w^*$ is Lyapunov stable
+            if there exists a Lyapunov function over some
+            neighborhood $\Omega^*$ of $w^*$.
+ \item[(b)] An isolated equilibrium point $w^*$ is asymptotically stable
+            if there exists a Lyapunov function over some
+            neighborhood $\Omega^*$ of $w^*$ such that $\dot{V}(w)<0,\
+            \forall w\in\Omega^*\setminus \{w^*\}$.
+ \end{description}
+ \end{lemma}
+
+ \medskip
+
+%----------------------------------------------------------------------------------- Definition 2.4
+ \begin{definition} (Exponential Stability)
+ An isolated equilibrium point $w^*$ is exponentially stable if there
+ exists a $\delta>0$ such that arbitrary point $w(t)$ of (\ref{ODE})
+ with the initial condition $w(t_0)=w_0$ and $\|w(t_0)-w^*\|<\delta$
+ is well defined on $[0,+\infty)$ and satisfies
+ \[
+ \|w(t)-w^*\|\leq ce^{-\omega t}\|w(t_0)-w^*\|,\quad \forall t\geq
+ t_0,
+ \]
+ where $c>0$ and $\omega>0$ are constants independent of the initial
+ point.
+ \end{definition}
+
+ \medskip
+
+%------------------------------------------------------------------------------------------------------- Section 3
+ \section{Smoothing neural network model for system of inequalities}
+
+This section utilizes the smoothing function constructed in the 
+previous section to construct a smooth neural network model for 
+solving the  system of inequalities \eqref{INEQUALITY}.
+
+Let,
+\begin{equation}\label{Psi}
+\Psi(x) = \frac{1}{2}\| [ f(x) ]_+ \|^2
+\end{equation}
+Then the system of inequalities \eqref{INEQUALITY}
+can be transformed into an  unconstrained optimization
+problem.
+\begin{equation}\label{minPsi}
+\min_{x\in \rn} \Psi(x).
+\end{equation}
+In order to overcome the nonsmoothness of the problem \eqref{minPsi},
+smoothing technique is adopted.
+
+For $\phi \in \{\phi_i,\phi^{(p)}\}$, $i=1,\cdots,10$, defined 
+by \eqref{phi1} -- \eqref{phi10},
+ we defined function $H:R^{n+1} \rightarrow R^{n+1}$ by
+
+\[
+H(\mu,x)=\left[
+    \begin{array}{c}
+        \mu, \\
+        \Phi(\mu,f(x))
+    \end{array}
+\right]=
+    \left[
+    \begin{array}{c}
+        \mu, \\
+        \phi(\mu,f_1(x))\\
+        \vdots \\
+        \phi(\mu,f_n(x))
+    \end{array}
+    \right]
+\]
+
+
+Let,
+\begin{equation}\label{Psimu}
+\Psi_\mu(\mu,x) = \mu^2+\sum_{k=1}^{m}(\phi\left(\mu,f_k(x))\right)^2
+=\frac{1}{2}\| H(\mu, x ) \|^2 ,
+\end{equation}
+Then, according to the above function $\Psi_\mu(\mu,x)$, the following
+ unconstrained optimization problem is defined
+\begin{equation}\label{minPsimu}
+\min_{x\in \rn} \Psi_\mu(\mu,x).
+\end{equation}
+
+In other hand, we can think of $\Psi_\mu(\mu,x)$ and unconstrained 
+problem \eqref{minPsimu} as being transformed from the following system of inequalities
+\begin{equation*}
+\left\{
+\begin{array}{c}
+f(x) \leq 0, \\
+-\mu \leq 0.
+\end{array}
+\right.
+\end{equation*}
+
+The next theorem gives the relation beteween problem \eqref{minPsi} and
+problem \eqref{minPsimu}.
+We need following Lemma. In the following analysis, only smooth 
+function $\phi = \phi_1$ is used, which is similar when other 
+functions  $\phi_i$, $i=1,\cdots,10$ and $\phi^{(p)}$ are used.
+
+\begin{lemma}\label{lemma-bound}
+For all $x \in \rn$, $\mu \geq 0$, we have
+\begin{equation}
+\mu^2 \leq \Psi(x) - \Psi_\mu(\mu,x) \leq \mu^2 +\frac{n\mu}{2}.
+\end{equation}
+\end{lemma}
+
+
+\begin{proof}
+Just give the proof in the case of smoothing function $\phi = \phi_1$, 
+the cases for other ten smoothing functions are similar.
+
+From Proposition \ref{approximationBound}, we have
+$$
+0 \leq \max\{0,x\} - \phi(\mu,x) \leq \frac{\mu}{2},
+$$
+Then,
+$$
+0 \leq [f(x)]_+  - \phi(\mu,f(x)) \leq \frac{\mu}{2}.
+$$
+Sum of both sides and add $\mu^2$
+$$
+\mu^2 \leq \Psi(f(x))  - \Psi_\mu(\mu,f(x) \leq \mu^2 +\frac{n\mu}{2}.
+$$
+\end{proof}
+
+\begin{theorem}\label{theorem31}
+Let the sequence $\mu_k \rightarrow 0$, $\mu_k \geq 0$, and $x_k$ is an 
+optimal solution of problem \eqref{minPsimu}, Assume that $x^*$ be an
+accumulating point of the sequence ${x_k}$. Then
+$x^*$ be an optimal solution to problem \eqref{minPsi},
+\end{theorem}
+
+\begin{proof}
+From Lemma \ref{lemma-bound}, for every $k$, we have
+$$
+\mu_k^2 \leq \Psi(f(x))  - \Psi_\mu(\mu_k,f(x) \leq \mu_k^2 +\frac{n\mu_k}{2}.
+$$
+Then,
+$$
+\min_{x\in \rn} \{ \mu_k^2 \} \leq  \min_{x\in \rn} \{ \Psi(f(x))  - x_k \} \leq \min_{x\in \rn} \{ \mu_k^2 +\frac{n\mu_k}{2} \}.
+$$
+Let's take $k \rightarrow \infty$, we have
+$$
+\lim_{k \rightarrow \infty}\Psi(f(x))=  \lim_{k \rightarrow \infty}x_k = x^*.
+$$
+\end{proof}
+
+\begin{theorem} \label{theorem32}
+Let $x^*$ and $\bar{x}$ are the optimal solutions of problem \eqref{minPsi}
+and \eqref{minPsimu}, respectively.
+Then
+$$
+0 \leq \Psi(f(x^*))  - \Psi_\mu(\mu,f(\bar{x})) \leq \mu\frac{n+2\mu}{2}.
+$$
+\end{theorem}
+
+\begin{proof}
+From Lemma \ref{lemma-bound} and $x^*$ and $\bar{x}$ are the optimal 
+solutions of problem \eqref{minPsi} and \eqref{minPsimu}, we have
+\[
+\mu_k^2 \leq \Psi(f(x^*))  - \Psi_\mu(\mu_k,f(x^*)),
+\]
+\[
+\Psi_\mu(\mu_k,f(\bar{x})  \leq \Psi_\mu(\mu_k,f(x^*)).
+\]
+Then,
+\[
+\mu_k^2 + \Psi_\mu(\mu_k,f(\bar{x}))  \leq \Psi(f(x^*))
+\]
+That is
+\begin{equation}\label{theoremInqua}
+\Psi_\mu(\mu_k,f(\bar{x}))  + \Psi(f(x^*)) \leq 0.
+\end{equation}
+From Lemma \ref{lemma-bound}, $x^*$ and $\bar{x}$ be an optimal 
+solutions of problem \eqref{minPsi}, we have
+\[
+\Psi(x^*) \leq \Psi(\bar{x}) \leq \Psi(\mu,\bar{x}) + \mu\frac{n+2\mu}{2},
+\]
+Therefor, we obtain
+\begin{equation}\label{theoremIqua2}
+ \Psi(x^*) - \Psi(\mu, x^*)  \leq  \mu\frac{n+2\mu}{2}
+\end{equation}
+
+Since \eqref{theoremInqua},\eqref{theoremIqua2}, there have
+\[
+ 0 \leq \Psi(x^*) - \Psi(\mu, x^*)  \leq  \mu\frac{n+2\mu}{2}.
+\]
+\end{proof}
+
+The Theorem \ref{theorem31} and Theorem \ref{theorem32} show that 
+the solution to smooth problem \eqref{minPsimu} is also optimal
+solution to the nonsmooth problem \eqref{minPsi} in small error.
+
+In order to describe the relationship between the optimal  solution 
+to  \eqref{minPsimu} and a feasible solution of the original system of
+inequalities \eqref{INEQUALITY}, we need to add extra conditions to 
+the function $f(s)$ of problem \eqref{INEQUALITY}. 
+When the function $f(x)$ is convex, we can characterize the relation 
+between the solution of the original system of  inequalities \eqref{INEQUALITY} 
+and the solution of the smooth problem \eqref{minPsimu}. Import the
+Theorem \ref{distance} through the following lemma for error bound \cite{M1995,M1985}.
+
+\begin{lemma}\label{errorbound}
+Suppose that the solution set $X$ of  \eqref{INEQUALITY} is nonempty, 
+$f(x)$ be a differentiable convex function on  $\rn$ and satisfy the 
+Slater and asymptotic constraint qualification \cite{M1995}.
+Then there exist $\tilde{x} \in X$, such that
+    $$ \| x- \tilde{x}\| \leq C\|(f(x))_+\|,$$
+where $C$ is a constant dependent on $f(x)$ \cite{M1995}.
+\end{lemma}
+
+\begin{theorem}\label{distance}
+  Suppose that the conditions of Lemma \ref{errorbound} are satisfied 
+and $\bar{x}(\mu)$ be solution to \eqref{minPsimu}.
+\begin{enumerate}
+    \item[(a)] There exist $\tilde{x}(\mu) \in X$, such that
+                $$ \| \bar{x}(\mu) - \tilde{x}(\mu)\| \leq rC\sqrt{n}.$$
+                where $C$ is a constant and same as Lemma \ref{errorbound} and
+                \begin{equation*}
+                 r=\left\{
+                    \begin{array}{cc}
+                        \frac{p-1}{p}\mu^{\frac{1}{p-1}}, & \phi= \phi^{(p)}\\
+                        \mu, & \text{other},\\
+                     \end{array}\right.
+                \end{equation*}
+
+    \item[(b)] If the  Slater constraint qualification  is satisfied 
+                by $f({x}) \leq 0$, then there exist a $\bar\mu >0$ such that for 
+                any $\mu \leq \bar\mu$, $x(\mu)$ solve the convex 
+                inequalities \eqref{INEQUALITY} exactly.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Consider that $\bar{x}$ is optimal solution of \eqref{minPsimu}
+and (i) of Proposition \eqref{approximationBound},
+ \begin{equation}\label{maxPsimu}
+    2\Psi_\mu(\bar{x}) \leq 2\Psi_\mu(\tilde{x}) = \| \Phi(\mu, f(\tilde{x}))\|^2 
+    +\mu^2 \leq  \|\Phi(\mu, 0)\|^2 + \mu^2.
+\end{equation}
+ We divide the smoothing function $\phi(\mu,t)$ into three classes and 
+discuss them separately.
+\begin{description}
+    \item[Case (i)] If $\phi \in \{\phi_3, \phi_4, \phi_5, \phi_7, 
+                    \phi_8, \phi_9, \phi_{10}\}$, then $\phi(\mu,t) \geq (t)_+$, for all $\mu \geq 0$.
+                    From Lemma \ref{errorbound}, 
+                \begin{eqnarray*}
+                     \| \bar{x}(\mu) - \tilde{x}(\mu)\| &\leq& C\|(g( \bar{x}))_+\| \leq  
+                      C\|\Phi(\mu,f( \bar{x}))\| = C\sqrt{2\Psi_\mu(\bar{x})-\mu^2}\\
+                         &\leq&   C\|\Phi(\mu, 0)\| =C\sqrt{n}\phi(\mu,0) \leq \mu C\sqrt{n}.
+                \end{eqnarray*}
+
+    \item[Case (ii)] If $\phi \in \{\phi_1, \phi_2,\phi_6 \}$, then $\phi(\mu,t) 
+                        \leq (t)_+$, for all $\mu \geq 0$.
+                 Let
+                 \begin{equation*}
+                     q(\mu)=\left\{
+                    \begin{array}{cc}
+                            \mu/2, & \phi= \phi_1, \\
+                            \mu, & \phi= \phi_2, \\
+                             % (\mu\log2)/2, & \phi= \phi_6, \\
+                            %  \frac{p-1}{p}\mu^{\frac{1}{p-1}}, &\phi= \phi^{(p)}.
+                    \end{array}
+                    \right.
+                 \end{equation*}
+                Then,  $\phi(\mu,t) +  2q(\mu) \geq (t)_+$, for all $\mu \geq 0$.
+                 From Lemma \ref{errorbound}, we have
+                \begin{eqnarray*}
+                        \| \bar{x}(\mu) - \tilde{x}(\mu)\| 
+                        &\leq&  C\|(f( \bar{x}))_+\| \leq  C( \|\Phi(\mu,f( \bar{x})) +2q(\mu)\|)  \\
+                        &\leq&  C\|\Phi(\mu,f( \bar{x}))\| + 2C\sqrt{n}q(\mu) 
+                                \leq C\|\Phi(\mu,0)\| + 2C\sqrt{n}q(\mu)  \\
+                        &=& C\sqrt{n}\phi(\mu,0) + 2C\sqrt{n}q(\mu) = 2C\sqrt{n}q(\mu))\\
+                        &\leq& 2\mu C\sqrt{n}.
+                        \end{eqnarray*}
+     \item[Case (iii)] If $\phi =\phi^{(p)}$, similar to the analysis in case (ii), we can draw the following result.
+                \begin{eqnarray*}
+                % \nonumber % Remove numbering (before each equation)
+                    \| \bar{x}(\mu) - \tilde{x}(\mu)\|
+                    &\leq&   2\sqrt{n}C\frac{p-1}{p}\mu^{\frac{1}{p-1}}\\
+                    &\leq&  .
+                \end{eqnarray*}
+  \end{description}
+\end{proof}
+
+The Theorem \ref{distance} say that an approximate solution of a feasible 
+solutions can be obtained by solving the smoothing model \eqref{minPsimu} in small error.
+
+\medskip
+
+Next, we construct a gradient neural network model to solve the unconstrained 
+optimization problem \eqref{minPsimu}.
+ Let $w=(\mu,x)$, it  is clear  that if
+ $w^{*}\in \Re_{++}\times \Re^{n}$ solves $H(w)=0$, then $w^{*}$ solves
+ $ \nabla \Psi(w) =0$ because
+ \begin{eqnarray*}
+ &  &  H(w^{*})=0
+  \Longleftrightarrow   \Psi(w^{*})=0 \\
+ & \Longleftrightarrow &  w^{*} \ \  \mbox{minimizes} \ \ \Psi_\mu(w^{*})
+   \Longrightarrow         \nabla \Psi_\mu(w^{*}) = 0.
+ \end{eqnarray*}
+
+ \medskip
+
+ Let $w(t)=(\mu(t),x(t))$, applying the gradient approach to the
+ minimization of the energy function \eqref{Psimu},
+ we obtain the system of differential equation:
+ \begin{equation} \label{ANN}
+    \left \{
+    \begin{array}{l}
+                \ds \frac{dw(t)}{dt} = -\rho \, \nabla  \Psi_\mu(w(t))
+                = -\rho \nabla H_i(w(t))^{\mathrm{T}} H_i(w(t)), \\
+                w(t_0) = w_0.
+    \end{array}
+    \right.
+ \end{equation}
+ where $w_0=(\mu_0, x_0)^{\mathrm{T}} \in \Re^{n+1}$, $\rho>0$
+ is a time scaling factor.
+
+ \medskip
+
+%----------------------------------------------------------------------------------- Assumption 3.1
+ \begin{assumption} \label{Assumption3.1}
+ The function $f(x)$ continuously  differentiable in $D \in \rn$.
+ \end{assumption}
+ %----------------------------------------------------------------------------------- Assumption 3.2
+ \begin{assumption} \label{Assumption3.2}
+ $\forall \mu > 0$, the Jacobian matrix J of function  $f(x)$ is nonsingular in $D \in \rn$.
+ \end{assumption}
+
+In practice, if the function $f(x)$ is a monotone function,
+i.e.,$(x-y)^{T} (f(x)-f(y)) \geq 0, x,y \in \rn$,
+then $\nabla f(x)$ is a positive semi-definite matrix for
+any $x \in \rn$ and, hence, Assumption \ref{Assumption3.2} is
+satisfied.
+
+ \medskip
+
+
+
+%---------------------------------------------------------------------------------- Proposition 3.1
+\begin{proposition} \label{Proposition 3.1}
+    Let smoothing function $\phi(\mu,t) \in \{\phi_1(\mu,t),\cdots,
+    \phi_{10}(\mu,t),\phi^{(p)}(\mu,t) \}$, and the assumption
+    \ref{Assumption3.1},\ref{Assumption3.2} are satisfied. Then, we have
+    \begin{description}
+    \item[(i)] $H_i (\mu, x)=0 $ if and only if $x$ solves the system of inequalities (\ref{INEQUALITY});
+     \item[(ii)] $H$ is continuously differentiable on
+            $\Re ^{n+1} \backslash \left\{\mathbf{0}\right\}$
+            with the Jacobian matrix given by
+            \begin{eqnarray}\label{DHi}
+            \nabla H (\mu, x):= \left[
+            \begin{array}{cc}
+            1 & \mathbf{0} \\
+            A & B^\mathrm{T}J
+            \end{array}
+            \right],
+            \end{eqnarray}
+            where,   $J$ is the Jacobian matrix of $f(x)$ and
+            \begin{eqnarray*}
+            A &:=& \left( \frac{\partial \phi(\mu, f_1(x))}
+            {\partial \mu},\cdots,  \frac{\partial \phi(\mu, f_n(x))}{\partial \mu}\right)^{\mathrm{T}}, \\
+            B &:=& \left( \frac{\partial \phi(\mu, f_1(x))}
+            {\partial t},\cdots,  \frac{\partial \phi(\mu, f_n(x))}{\partial t}\right)^{\mathrm{T}}.
+            \end{eqnarray*}
+    \end{description}
+ \end{proposition}
+
+ \beginproof
+ The arguments are straightforward and we omit them.
+ \endproof
+
+ \medskip
+
+%---------------------------------------------------------------------------------- Proposition 3.4
+ \begin{proposition} \label{propsition 3.2}
+ Let $\Psi:\rn \rightarrow \Re_+ $ be given by \eqref{minPsimu} and
+ assumption \ref{Assumption3.1},\ref{Assumption3.2} are satisfied.
+ Then, the following
+ results hold.
+ \begin{description}
+ \item[(i)] $\Psi(\mu,x) \geq 0, \forall (\mu, t) \in \Re_{++} \times \Re $ and
+            $\Psi(\mu,x)= 0$ if and only if $x$ solve the system of inequalities \eqref{INEQUALITY}.
+
+ \item[(ii)] The function  $\Psi(\mu, x)$  is continuously differentiable on
+            $\Re ^{n+1} \backslash \left\{\mathbf{0}\right\}$ with
+            \[
+            \nabla \Psi(\mu,x)=\nabla H^\mathrm{T}H,
+            \]
+            where $\nabla H $ is the Jacobian of $H(\mu,x)$.
+ \item[(iii)] The function $\Psi(w(t))$ is nonincreasing with respect to $t$.
+ \end{description}
+ \end{proposition}
+ \beginproof
+ Parts (i)-(ii) follow from Proposition \ref{Proposition 3.1} immediately.
+
+ \medskip
+ \noindent
+ For part (iii), we observe that
+ \begin{eqnarray*}
+ \frac{d \Psi(w(t))}{d t}
+ &=& \left \lla \frac{dw}{dt},\nabla \Psi(\mu,u) \right \rla \\
+ &=& \left \lla -\rho \, \nabla \Psi(\mu,u) ,
+     \nabla \Psi(\mu,u) \right\rla \\
+ &=& -\rho \, \left \| \nabla \Psi(\mu,u)  \right \|^2   < 0,
+ \end{eqnarray*}
+ for all $u \in \Omega \setminus \{u^{*} \}$. Then, the desired result follows.
+ \endproof
+
+
+ \medskip
+
+
+
+
+%---------------------------------------------------------------------------------------------- Section 4
+ \section{Stability and Existence}
+
+
+
+ In this section, we first give the relation between the solution of system of
+ inequalities \eqref{INEQUALITY} and the equilibrium point of neural network \eqref{ANN}.
+ Then, we discuss the issues of the stability and the the solution trajectory of
+ the neural network \eqref{ANN}.
+
+ \medskip
+
+%---------------------------------------------------------------------------------------- Lemma 4.2
+ \begin{lemma}\label{lmaeq}
+ Let $x^{*}$ be a equilibrium of the neural network (\ref{ANN}) and suppose that
+ assumption \ref{Assumption3.2} are satisfied. Then $x^{*}$ solves the
+ system (\ref{INEQUALITY}).
+ \end{lemma}
+ \beginproof
+ Since $  \nabla \left( \Psi(w^{*}) \right)= \nabla H_i^\mathrm{T}H_i(w^{*})$
+ and from the assumption \ref{Assumption3.2}, Proposition \ref{Proposition 2.2} and \ref{Proposition 3.1}
+  obtain  $\nabla H$ is nonsingular. It is clear to see that
+ $$\nabla \left( \Psi(w^{*}) \right)=0, $$ if and only if $H_i(w^{*})=0$.
+ \endproof
+
+ \medskip
+
+%-------------------------------------------------------------------------------------- Theorem 4.1
+ \begin{theorem}
+ \begin{description}
+ \item[(a)] For any initial point $w_0=w(t_0)$, there exists a unique
+            continuously maximal solution $w(t)$ with $t\in [t_0, \tau)$
+            for the neural network (\ref{ANN}).
+ \item[(b)] If the level set
+            ${\cal L}(w_0):= \left\{ w \, | \, \|H_i(w)\|^2 \leq \|H(w_0)\|^2 \right\}$
+            is bounded, then $\tau$ can be extended to $\infty$.
+ \end{description}
+ \end{theorem}
+ \beginproof
+ This proof is exactly the same as the one in \cite[Proposition 3.4]{SCK12},
+ so we omit it here.
+ \endproof
+
+ \medskip
+
+ Now, we are going to analyze the stability of an isolated equilibrium $x^*$
+ of the neural network (\ref{ANN}), which is to assert that $\nabla\Psi(x^{*} ) =0$
+ and $\nabla\Psi(x)\neq0$ for $x\in\Omega\setminus\{x^{*}\}$,
+ $\Omega$ is a neighborhood of $x^*$.
+
+ \medskip
+
+%-------------------------------------------------------------------------------------- Theorem 4.2
+ \begin{theorem}\label{asym_stable}
+ If assumption \ref{Assumption3.1},\ref{Assumption3.2} are satisfied, then the isolated
+ equilibrium $x^*$ of the neural network (\ref{ANN}) is asymptotically stable,
+ and hence Lyapunov stable.
+ \end{theorem}
+ \beginproof
+ We consider the Lyapunov function $\Psi(w):\Omega \to \Re$ defined by \eqref{energy}.
+ First, it is clear that $\Psi(x)\geq 0$ and from (a) of Proposition \ref{Proposition 3.1}
+ we have $\Psi(\cdot)$ is continuously differentiable.
+ Considering assumption \ref{Assumption3.2}, Proposition \ref{Proposition 2.2} and \ref{Proposition 3.1}
+ we obtain $\nabla H(w^*)$ is nonsingular.
+ Then applying $\nabla H(x^*)$ and Lemma \ref{lmaeq}, we have $H(w^*)=0$ and $\Psi(w^*)=0$.
+ Furthermore, if $\Psi(w)=0$ on $\Omega$, then $H(w)=0$ and hence
+ $\nabla \Psi=0$ on $\Omega$. This yields that $w=w^*$
+ since $w^*$ is isolated.
+
+ \medskip
+ \noindent
+ Secondly, consider the (b) of Proposition \ref{Proposition 3.1} and Lemma \ref{stablecondition},
+ it says the isolated equilibrium $x^*$ is asymptotically stable, and hence
+ is Lyapunov stable.
+ \endproof
+
+ \medskip
+
+%-------------------------------------------------------------------------------------- Theorem 4.3
+ \begin{theorem}
+ If assumption \ref{Assumption3.1},\ref{Assumption3.2} are satisfied, then the isolated
+ equilibrium $x^*$ of the neural network (\ref{ANN}) is exponentially stable.
+ \end{theorem}
+ \beginproof
+ Let $\Omega = \Re_{++} \times \Re^n$, it is clear that $H(\cdot)$ is continuously
+ differentiable, which implies
+ \begin{equation} \label{Hu}
+ H(w)=H(w^*)+\nabla H(w^*)^T(w-w^*) + o(\|w-w^*\|), \quad \forall \, w \in \Omega.
+ \end{equation}
+ Let $g(t):=\frac{1}{2}\|w(t)-w^*\|^2$ and we compute the derivative of $g(t)$
+ as below:
+ \begin{eqnarray*}
+ & & \ds \frac{d g(t)}{d t} = \left( \frac{dw}{dt} \right)^T (w(t)-w^*)
+     = -\frac{\rho}{2} \, \nabla(\|H(w)\|^2)^T (w(t)-w^*) \\
+ &=& -\rho \, (\nabla H(w) \cdot H(w))^T (w(t)-w^*) = -\rho \, H(w)^T \nabla H(w)^T (w(t)-w^*) \\
+ &=& -\rho \, (w(t)-w^*)^T \nabla H(w^*) \nabla H(w)^T (w(t)-w^*)
+     -\rho \, o(\|w-w^*\|)^T \nabla H(w)^T (w(t)-w^*),
+ \end{eqnarray*}
+ where the last equality is due to (\ref{Hu}). To proceed, we claim two assertions.
+ First, we claim that
+ \(
+ (w-w^*)^T \nabla H(w^*) \nabla H(w)^T(w-w^*)\geq \kappa ||w-w^*||^2,
+ \)
+ for some $\kappa$. To see this,  from the Assumption \ref{Assumption3.1},\ref{Assumption3.2}, Proposition \ref{Proposition 2.2}
+ and Proposition \ref{Proposition 3.1}, we know $\nabla H(w)$ is nonsingular and
+ $H$ is a continuously differentiable function, which implies the matrix
+ $\nabla H(w^*)\nabla H(w^*)^T$ is symmetric and positive semi-definite. Hence,
+ we have
+ $(w-w^*)^T \nabla H(w^*) \nabla H(w^*)^T(w-w^*) \geq \kappa_1 \|w-w^*\|^2>0$
+ over $\Omega \setminus \{w^{*}\}$ for some $\kappa_1\geq0$. Then, by the continuity
+ of $\nabla H(\cdot)$, we can conclude that
+ \[
+ (w-w^*)^T \nabla H(w^*) \nabla H(w)^T(w-w^*) \geq \kappa \|w-w^*\|^2 >0,
+ \quad \mbox{for some $\kappa \geq0$}.
+ \]
+
+ \medskip
+ \noindent
+ Secondly, we claim that
+ \[
+ - \rho \, o(\|w-w^*\|)^T \nabla H(w)^T(w(t)-w^*)\leq
+ \varepsilon \|w-w^*\|^2, \quad \mbox{for some $\varepsilon >0$}.
+ \]
+ This is because that
+ \[
+ \frac{\big|- \rho \, o(\|w-w^*\|)^T \nabla H(w)^T(w(t)-w^*)\big|}{\|w-w^*\|^2}
+ \leq \rho \|\nabla H(w)\| \left( \frac{\|o(\|w-w^*\|)\|}{\|w-w^*\|} \right),
+ \]
+ where the right-hand side vanishes eventually. Thus, it yields that
+ \[
+ - \rho \, o(\|w-w^*\|)^T \nabla H(w)^T(w(t)-w^*)\leq
+ \varepsilon \|w-w^*\|^2, \quad \mbox{for some $\varepsilon >0$}.
+ \]
+ Now, from the above two assertions and noting that $g(t)=\frac{1}{2}\|w(t)-w^*\|^2$,
+ we have
+ \[
+ \frac{d g(t)}{d t} \leq 2 (-\rho\kappa+\varepsilon)g(t),
+ \]
+ which gives
+ \[
+ g(t)\leq e^{2(-\rho\kappa+\varepsilon)t} g(t_0).
+ \]
+ Thus, we have
+ \[
+ \| w(t)-w^*\| \leq e^{(-\rho\kappa+\varepsilon)t} \, \|w(t_0)-w^*\|,
+ \]
+ which says $w^*$ is exponentially stable as we can set $\rho$ larger enough
+ such that $-\rho\kappa+\varepsilon<0$. Then, the proof is complete.
+ \endproof
+
+ \medskip
+
+
+
+
+%---------------------------------------------------------------------------------------------- Section 5
+ \section{Numerical Results}
+
+ In order to demonstrate the effectiveness of the proposed neural network, we
+ test several examples for our neural network \eqref{ANN} in this section. The
+ numerical implementation is coded by Mathematica 12.0 and the ordinary
+ differential equation solver adopted is NDSolve[ ], which uses an Runge-Kutta (2,3)
+ formula. The stopping criteria for all test problems is $\frac{1}{2}\|H(u) \|^2 < 10^{-6}$.
+ The following test problems are employed from \cite{Chen2016,HZ2008}.
+
+%------------------------------------------------------------------------------------------------------------------------- Example 1
+ \begin{example}\label{ex1}
+ Consider the following system of inequalities
+ \[
+f_1(x)=x_1^2 + x_2^2 -1 +  \varepsilon,
+\ f_2(x)= -x_1^2 - x_2^2 +(0.999)^2 + \varepsilon
+ \]
+ \end{example}
+
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\scope[nodes={inner sep=0,outer sep=0}]
+\node[anchor=south east] (a)
+  {\includegraphics[width=7cm]{exmaple-1-Trajac-Phi5.pdf}};
+\node[anchor=south west] (b)
+  {\includegraphics[width=7cm]{exmaple-1-Hnorm-Phi5.pdf}};
+\node[anchor=north east] (c)
+  {\includegraphics[width=7cm]{exm01-bar1.pdf}};
+\node[anchor=north west] (d)
+  {\includegraphics[width=7cm]{exm01-bar2.pdf}};
+\endscope
+\foreach \n in {a,b,c,d} {
+  \node[anchor=north west,fill=yellow!50] at (\n.north west) {(\n)};
+}
+%\node[anchor=north east,fill=green] at (e.south east) {(e)};
+%\node[anchor=south west,fill=green] at (f.south west) {(f)};
+\end{tikzpicture}
+\caption{Computing results of Example \ref{ex1}}\label{FigEx01}
+\end{figure}
+
+
+
+ For the Example \ref{ex1}, the parameter list of neural network \ref{ANN}
+ are following $\rho = 1, c=1, dt=0.2, x_0 = (0,5), s_0 = f(x_0),
+ \varepsilon = 10^{-7} $ . Example \ref{ex1} can be solved successfully by
+  neural network \eqref{ANN} with smoothing function $\phi_1, \cdots , \phi_8$,
+  but not by the function  $\phi_9,  \phi_{10}, \phi^{(p)}(p=1.3, 1.6.2.5)$.
+ For the successfully solved functions $\phi_1, \cdots , \phi_8$, there is
+ no difference for the trajectories and the decline curves of the energy functions.
+ Therefor, the figure (a)and (b) of Figure \ref{FigEx01} depict the trajectory behaviour and
+ convergence behaviour of neural network \eqref{ANN} with only one smoothing
+ function $\phi_5$. However, The (c) and (d) of Figure  \ref{FigEx01} show that in
+ terms of computing time, smoothing function $\phi_1, \phi_4, \phi_5, \phi_8$
+ very efficiency and followed by $\phi_2$. The $\phi_3, \phi_7$ function
+ performs worst in computation time.
+
+
+
+ %------------------------------------------------------------------------------------------------------------------------- Example 2
+ \begin{example}\label{ex2}
+ Consider the following system of inequalities
+ \[
+ f_1(x) =\sin(x_1)+ \varepsilon, f_2(x) = -\cos(x_2)+ \varepsilon,
+ f_3(x) = x_1^2 + x_2^2 + x_3^2 + \varepsilon
+ \]
+ \end{example}
+
+
+ The parameter list are following $\rho = 1, c=1, dt=0.2, x_0 = (0,0,0),
+  s_0 = f(x_0), \varepsilon = 10^{-7} $ .
+ Except for smoothing function $\phi_9$, all the other 12 smoothing functions
+ can solve example \ref{ex2} successfully. The higher power of $\mu$ is used
+ as the denominator and the small $\mu$ causes the function $\phi_9$ to be
+ unable to solve successfully. The figure (a), (b) of Figure \ref{FigEx02} depict the
+ trajectory behaviour and convergence behaviour of neural network \eqref{ANN}
+ in example \ref{ex2}.
+
+ These functions differ little in terms of performance, such as the iteration
+ number, the value of $\frac{1}{2}\|H(u(t))\|^2$ when  algorithm terminates.
+ But for computing time there are obviously difference. It can be seen from
+ the time bar chart (a) of Figure \ref{FigEx02} that the computing time
+ efficiency of function $\phi_3,\phi_4,\phi_7$ are much worse than other
+ functions. The bar chart (b) of Figure  \ref{FigEx02} show the
+ difference between other smoothing functions. The best one is $\phi_5$
+ and following $\phi^{(p)},(p=1.3,1.6.2.5)$, $\phi_1$, $\phi_6$, $\phi_8$.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\scope[nodes={inner sep=0,outer sep=0}]
+\node[anchor=south east] (a)
+  {\includegraphics[width=7cm]{exmaple-2-Trajac-Phi5.pdf}};
+\node[anchor=south west] (b)
+  {\includegraphics[width=7cm]{exmaple-2-Hnorm-Phi5.pdf}};
+\node[anchor=north east] (c)
+  {\includegraphics[width=7cm]{exm02-bar1.pdf}};
+\node[anchor=north west] (d)
+  {\includegraphics[width=7cm]{exm02-bar2.pdf}};
+\endscope
+\foreach \n in {a,b,c,d} {
+  \node[anchor=north west,fill=yellow!50] at (\n.north west) {(\n)};
+}
+%\node[anchor=north east,fill=green] at (e.south east) {(e)};
+%\node[anchor=south west,fill=green] at (f.south west) {(f)};
+\end{tikzpicture}
+\caption{Computing results of Example \ref{ex2}}\label{FigEx02}
+\end{figure}
+
+
+
+ %-------------------------------------------------------------------------------------- Example 5.1
+ \begin{example}\label{ex3}
+ Consider the following system of inequalities
+ \begin{eqnarray*}
+ f_1(x) &=&\sin(x_1)+ \varepsilon, f_2(x) = -\cos(x_2)+ \varepsilon,
+ f_3(x) = x_1 - 3\pi+x_3^2 + \varepsilon,\\
+ f_4(x) &=&x_2 - \frac{\pi}{2} -2+x_4^2 + \varepsilon,
+ f_5(x) = -x_1 - \pi + x_5^2 + \varepsilon,
+ f_6(x) = -x_2 - \frac{\pi}{2} + x_6^2 + \varepsilon,
+ \end{eqnarray*}
+ \end{example}
+
+
+
+ The parameter list are following $\rho = 1, c=100, dt=1, x_0 = (0,0,0,0,0,0),
+  s_0 = f(x_0),\varepsilon = 10^{-7} $ .
+ Except for smoothing function $\phi_9,\phi^{(p)},(p=1.3,1.6,2.5)$, all the
+ other 9 smoothing functions can solve  example \ref{ex3} successfully. For
+ this example the iteration number listed in Table \ref{tableEx03}. The figure
+ (a) and (b) of Figure  \ref{FigEx03} depict the trajectory behaviour and convergence behaviour
+ of neural network \eqref{ANN} with $\phi_5$ in example \ref{ex3}. The trajectory
+ behaviour and convergence behaviour  of neural network \eqref{ANN} with other
+ smoothing functions are very similar to Figure \ref{FigEx03},  so omit
+ these figures.
+
+ \begin{table}[ht]
+  \centering
+  \begin{tabular}{c c c c c c c c c c}
+     \hline
+     % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+     $\phi$ & $\phi_1$ & $\phi_2$ & $\phi_3$ & $\phi_4$ & $\phi_5$ &
+     $\phi_6$ & $\phi_7$ & $\phi_8$ &$\phi_{10}$ \\
+      \hline
+     N & 45 & 45 & 45 & 82 & 82 & 82 & 82 & 82 & 112 \\
+     \hline
+   \end{tabular}
+  \caption{Iteration number with different $\phi_i$ in
+  Example \ref{ex3}}\label{tableEx03}
+\end{table}
+
+ For the computing time there are obviously difference between 9 smoothing function.
+ It can be seen from the time bar chart (a) of Figure \ref{FigEx03} that the
+ computing time efficiency  of function $\phi_3,\phi_4,\phi_7$ are much worse than
+ other functions. The  bar chat(b)  of  Figure  \ref{FigEx03} show the
+ difference between other smoothing functions. The best  one is $\phi_5$ and
+ following $\phi^{(p)},(p=1.3,1.6.2.5)$ , $\phi_1$, $\phi_6$,$\phi_8$.
+
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}
+\scope[nodes={inner sep=0,outer sep=0}]
+\node[anchor=south east] (a)
+  {\includegraphics[width=8cm]{exmaple-3-Trajac-Phi5.pdf}};
+\node[anchor=south west] (b)
+  {\includegraphics[width=8cm]{exmaple-3-Hnorm-Phi5.pdf}};
+\node[anchor=north east] (c)
+  {\includegraphics[width=8cm]{exm03-bar1.pdf}};
+\node[anchor=north west] (d)
+  {\includegraphics[width=8cm]{exm03-bar2.pdf}};
+\endscope
+\foreach \n in {a,b,c,d} {
+  \node[anchor=north west,fill=yellow!50] at (\n.north west) {(\n)};
+}
+%\node[anchor=north east,fill=green] at (e.south east) {(e)};
+%\node[anchor=south west,fill=green] at (f.south west) {(f)};
+\end{tikzpicture}
+\caption{Computing results of Example \ref{ex3}}\label{FigEx03}
+\end{figure}
+
+%---------------------------------------------------------------------------------------------- Section 6
+ \section{Concluding Remarks}
+
+
+ The main contents of this paper are as follows. Firstly, 11 kinds of smooth functions
+ of projection functions are generated by using different mathematical methods.
+ Some of these functions appear in the literature, but functions such as the $\phi^{(p)}$
+ function have not been found in the previous literature.
+ Secondly, a gradient neural network is constructed based on these smoothing functions and used
+ for solving inequalities for the first time. Finally, Numerical experiments not only show that
+ neural network  (\ref{ANN}) can effectively solve system of inequalities \eqref{INEQUALITY},
+ but also summarize which smoothing functions are more effective in the neural network (\ref{ANN}).
+ In general, we can conclude that the smoothing functions $\phi_3$,
+ $\phi_7$, $\phi_9$ , $\phi_{10}$ performs poorly in neural networks (\ref{ANN}).
+ The common feature of these functions is that their expressions are complex and
+ contain higher degree term of $\mu$ as the denominator like $\phi_9$.
+ On the other hand, function $\phi_1$, $\phi_2$, $\phi_5$, $\phi_5$ are computationally efficient
+ in the neural network (\ref{ANN}).
+ This means that we should make  the structure as simple as possible and not contain
+ terms that vary greatly or very little with $\mu \rightarrow 0$.
+ This is a very interesting discovery which may be helpful in other contexts. One of future
+ directions is to check whether such phenomenon occurs in other types of algorithms.
+
+
+
+ \medskip
+
+
+
+
+
+%--------------------------------------------------------------------------------------------- References
+ \begin{thebibliography}{1}
+  \bibitem{fy18}
+ {\sc Fan X, Yan Q},
+ {\em Solving system of inequalities via a smoothing homotopy method},
+  Numerical Algorithms, 2018: 1-10.
+
+ \bibitem{BP93}
+ {\sc A.\ Bouzerdoum and T.R.\ Pattison},
+ {\em Neural network for quadratic optimization with bound constraints},
+ IEEE Trans.Neural Networks, vol. 4, pp. 293--304, 1993.
+
+ \bibitem{BM12}
+ {\sc A.\ Beck and M.\ Teboulle},
+ {\em Smoothing and first order methods: a unified framework},
+ SIAM Journal on Optimization, vol. 22, pp. 557--580,2012.
+
+ \bibitem{BC2016}
+ {\sc H. Bauschke and P. Combettes},
+ {\em  Convex Analysis and Monotone Operator Theory in Hilbert Spaces},
+ New York, Springer, 2016.
+
+% \bibitem{CQZ11}
+% {\sc L.\ Caccetta, B.\ Qu, and G.-L.\ Zhou},
+% {\em A globally and quadratically convergent method for absolute value equations},
+% Computational Optimization and Applications, vol. 48, pp. 45--58, 2011.
+
+% \bibitem{CKLW16}
+% {\sc J.-S.\ Chen, C.-H.\ Ko, Y.-D.\ Liu, and S.-P.\ Wang},
+% {\em New smoothing functions for solving a system of equalities and inequalities},
+% Pacific Journal of Optimization, vol. 12, pp. 185--206, 2016.
+
+ \bibitem{CM96}
+ {\sc C.\ Chen and O.L.\ Mangasarian}
+ {\em A class of smoothing functions for nonlinear and mixed complementarity problems},
+ Computational Optimization and Applications, vol. 5, pp. 97--138, 1996.
+
+  \bibitem{Chen2016}
+ {\sc J-S Chen, C-H Ko, Y-D Liu, and S-P Wang},
+ {\em New smoothing functions for solving a system of equalities and inequalities},
+  Pacific Journal of Optimization, vol. 12, no. 1, pp. 185-206, 2016.
+
+  \bibitem{CH1993}
+  {\sc Bintong Chen, P. T. Harker},
+  {\em  A non-interior-point continuation method for linear com- plementarity problems},
+   SIAM Journal on Matrix Analysis and Applicatons, 14:1168-1190, 1993.
+
+ \bibitem{CU93}
+ {\sc A.\ Cichochi and R.\ Unbenhauen}
+ {\em Neural Network for Optimization and Signal Processing},
+ John Wiley \& Sons, Inc., 1993.
+
+ \bibitem{HT85}
+ {\sc J.J. Hopfield and D.W.\ Tank},
+ {\em Neural computation of decision in optimization problems},
+ Biological Cybernetics, vol. 52 pp. 141--152, 1985.
+
+\bibitem{HZ2008}
+ {\sc Huang, Z.H., Zhang, Y., Wu, W.},
+ {\em A smoothing-type algorithm for solving system of inequalities},
+  J. Comput. Appl. Math. 220, 355-363, 2008.
+
+% \bibitem{HH10}
+% {\sc S.-L.\ Hu and Z-H.\ Huang},
+% {\em A note on absolute value equations},
+% Optimization Letters, vol. 4, pp. 417--424, 2010.
+
+% \bibitem{HHZ11}
+% {\sc S.-L.\ Hu, Z.-H.\ Huang, and Q.\ Zhang},
+% {\em A generalized Newton method for absolute value equations associated with second order cones},
+% Journal of Computational and Applied Mathematics, vol. 235, pp. 1490--1501, 2011.
+%
+% \bibitem{JZ13}
+% {\sc X.\ Jiang and Y.\ Zhang},
+% {\em A smoothing-type algorithm for absolute value equations},
+% Journal of Industrial and Management Optimization, vol. 9, pp. 789--798, 2013.
+%
+% \bibitem{KM12}
+% {\sc S.\ Ketabchi and H.\ Moosaei},
+% {\em Minimum norm solution to the absolute value equation in the convex case},
+% Journal of Optimization Theory and Applications, vol. 154, pp. 1080--1087, 2012.
+
+ \bibitem{KR92}
+ {\sc J.\ Kreimer and R.Y.\ Rubinstein},
+ {\em Nondifferentiable optimization via smooth approximation: General analytical approach},
+ Annals of Operations Research, vol. 39, pp. 97--119, 1992.
+
+ \bibitem{LQ99}
+ {\sc L.-Z.\ Liao and H.-D.\ Qi},
+ {\em A neural network for the linear complementarity problem},
+ Mathematical and Computer Modelling, vol. 29, pp. 9--18, 1999.
+
+ \bibitem{LQQ01}
+ {\sc L.\ Liao, H.-D.\ Qi, and L.\ Qi},
+ {\em Solving nonlinear complementarity problem with neural networks: a reformulation method approach},
+ Journal of Computational and Applied Mathematics, vol. 131, pp. 343--359, 2001.
+
+
+\bibitem{M1985}
+ {\sc O.L. Mangasarian},
+  {\em A CONDITION NUMBER FOR DIFFERENTIABLE CONVEX INEQUALITIES},
+   MATHEMATICS OF OPERATIONS RESEARCH, vol.10(2),pp. 175–179, 1985.
+
+
+\bibitem{M1995}
+ {\sc O.L. Mangasarian},
+  {\em A condition number for differentiable convex inequalities},
+   Mathematics of Operations Research, vol.10(2),pp. 175-179, 1985.
+ %\bibitem{Man07-1}
+% {\sc O.L.\ Mangasarian},
+% {\em Absolute value programming},
+% Computational Optimization and Applications, vol. 36, pp. 43--53, 2007.
+%
+% \bibitem{Man07-2}
+% {\sc O.L.\ Mangasarian},
+% {\em Absolute value equation solution via concave minimization},
+% Optimization Letters, vol. 1, pp. 3--5, 2007.
+%
+% \bibitem{Man09}
+% {\sc O.L.\ Mangasarian},
+% {\em A generalized Newton method for absolute value equations},
+% Optimization Letters, vol. 3, pp. 101--108, 2009.
+%
+% \bibitem{Man12}
+% {\sc O.L.\ Mangasarian},
+% {\em Primal-dual bilinear programming solution of the absolute value equation},
+% Optimization Letters, vol. 6, pp. 1527--1533, 2012.
+%
+% \bibitem{Man13}
+% {\sc O.L.\ Mangasarian},
+% {\em Absolute value equation solution via dual complementarity},
+% Optimization Letters, vol. 7, pp. 625--630, 2013.
+%
+% \bibitem{MHC17}
+% {\sc X.-H.\ Miao, W.-M.\ Hsu, and J.-S.\ Chen},
+% {\em The solvabilities of three optimization problems associated with second-order cone},
+% submitted manuscript, 2018.
+%
+% \bibitem{MYSC17}
+% {\sc X.-H.\ Miao, J.-T.\ Yang, B.\ Saheya, and J.-S.\ Chen},
+% {\em A smoothing Newton method for absolute value equation associated with second-order cone},
+%  Applied Numerical Mathematics, vol. 120, October, pp. 82--96, 2017.
+%
+% \bibitem{MM06}
+% {\sc O.L.\ Mangasarian and R.R.\ Meyer},
+% {\em Absolute value equation},
+% Linear Algebra and Its Applications, vol. 419, pp. 359--367, 2006.
+
+ \bibitem{Mor65}
+ {\sc J.J.\ Moreau},
+ {\em Proximit$\acute{e}$ et dualit$\acute{e}$ dans un espace Hilbertien},
+ Bulletin de la Soci$\acute{e}$t$\acute{e}$ Math$\acute{e}$matique de France,
+ vol. 93,  pp. 273-299, 1965.
+
+ \bibitem{Nesterov05}
+ {\sc Y.\ Nesterov},
+ {\em Smooth minimization of non-smooth functions},
+ Mathematical Programming, vol. 103(1), pp. 127--152, 2005.
+
+ \bibitem{PZ1995}
+ {\sc Pinar M. C., Zenios S. A.},
+ {\em On smoothing exact penalty functions for convex constrained optimization},
+ SIAM Journal on Optimization, 4(3): 486-511, 1994.
+
+% \bibitem{Pro09}
+% {\sc O.A.\ Prokopyev},
+% {\em On equivalent reformulations for absolute value equations},
+% Computational Optimization and Applications, vol. 44, pp. 363--372, 2009.
+
+ \bibitem{Qi93}
+ {\sc L.\ Qi},
+ {\em Convergence analysis of some algorithms for solving nonsmooth equations},
+ Mathematics of Operations Research, vol. 18, pp. 227--244, 1993.
+
+ \bibitem{QSZ00}
+ {\sc L.\ Qi, D.\ Sun, and G.-L.\ Zhou},
+ {\em A new look at smoothing Newton methods for nonlinear complementarity problems
+ and box constrained variational inequality problems},
+ Mathematical Programming, vol. 87, pp. 1--35, 2000.
+
+ \bibitem{QD02}
+ {\sc L.\ Qi and D.\ Sun},
+ {\em Smoothing functions and smoothing Newton method for complementarity and variational
+ inequality problems},
+ Journal Of Optimization Theory And Applications, vol. 113, pp. 121--147, 2002.
+
+ %\bibitem{Roh04}
+% {\sc J.\ Rohn},
+% {\em A theorem of the alternatives for the equation $Ax+B|x|=b$},
+% Linear and Multilinear Algebra, vol. 52, pp. 421--426, 2004.
+%
+% \bibitem{Roh06}
+% {\sc J.\ Rohn},
+% {\em Solvability of systems of interval linear equations and inequalities},
+% in Linear Optimization Problems with Inexact Data edited by. M. Fiedler, J. Nedoma,
+% J. Ramik, J. Rohn and K. Zimmermann, Springer, pp. 35--77, 2006.
+%
+% \bibitem{Roh09}
+% {\sc J.\ Rohn},
+% {\em An algorithm for solving the absolute value equation},
+% Eletronic Journal of Linear Algebra, vol. 18, pp. 589--599, 2009.
+
+ \bibitem{SYC16}
+ {\sc B.\ Saheya, C.-H.\ Yu, and J.-S.\ Chen},
+ {\em Numerical comparisons based on four smoothing functions for absolute value equation},
+ Journal of Applied Mathematics and Computing, vol. 56, pp. 131--149, 2018.
+
+ \bibitem{SCK12}
+ {\sc J.-H.\ Sun, J.-S.\ Chen, and C.-H.\ Ko},
+ {\em Neural networks for solving second-order cone constrained variational inequality problem},
+  Computational Optimization and Applications, vol. 51, pp. 623--648, 2012.
+
+ \bibitem{TH86}
+ {\sc D.W.\ Tank and J.J.\ Hopfield},
+ {\em  Simple neural optimization networks: an A/D converter, signal decision circuit,
+ and a linear programming circuit},
+ IEEE Transactions on Circuits and Systems. vol. 33, pp. 533--541, 1986.
+
+ \bibitem{VOY15}
+ {\sc S.\ Voronin, G.\ Ozkaya, and D.\ Yoshida},
+ {\em Convolution based smooth approximations to the absolute value function with application
+ to non-smooth regularization},
+ arXiv:1408.6795v2 [math.NA] 1 Jul 2015.
+
+ %\bibitem{WYG15}
+% {\sc F.\ Wang, Z.\ Yu, and C.\ Gao},
+% {\em A smoothing neural network algorithm for absolute value equations},
+% Engineering, vol. 7, pp. 567--576, 2015.
+%
+% \bibitem{YT12}
+%  {\sc Yong, L.Q., Liu, S.Y. and Tuo, S.H.},
+% {\em Transformation of the Linear Complementarity Problem and the Absolute Value Equation},
+%  Journal of Jilin University (Science Edition), vol. 4, pp. 638-686, 2014.
+%
+% \bibitem{YF14}
+% {\sc S.\ Yamanaka and M.\ Fukushima},
+% {\em A brancd and bound method for the absolute value programs},
+% Optimization, vol. 63, pp. 305--319, 2014.
+%
+% \bibitem{ZW09}
+% {\sc C.\ Zhang and Q.\ Wei},
+% {\em Global and finite convergence of a generalized Newton method for absolute value equations},
+% Journal of Optimization Theory and Applications, vol. 143, pp. 391--403, 2009.
+
+ \bibitem{ZUH95}
+ {\sc S.H.\ Zak, V.\ Upatising, and S.\ Hui},
+ {\em Solving linear programming problems with neural networks: a comparative study},
+ IEEE Trans Neural Networks, vol. 6, pp. 94--104, 1995.
+
+
+ %\bibitem{FLT02}
+% {\sc M.\ Fukushima, Z.Q.\ Luo, and P.\ Tseng},
+% {\em Smoothing functions for second-order cone complementarity problems},
+% SIAM Journal on Optimization, vol. 12, pp. 436-460, 2002.
+%
+%
+% \bibitem{HYF05}
+% {\sc S.\ Hayashi, N.\ Yamashita, and M.\ Fukushima},
+% {\em A combined smoothing and regularization method for monotone second-order cone
+% complementarity problems},
+% SIAM Journal on Optimization, vol. 15, pp. 593--615, 2005.
+
+\bibitem{HZW08}
+ {\sc Z.H.\ Huang, Y.\ Zhang, W.\ Wu},
+ {\em A smoothing-type algorithm for solving a system of inequalities},
+ Journal of Computational and Applied Mathematics, vol. 220, pp. 355--363, 2008.
+
+
+ \bibitem{ZH09}
+ {\sc Y.\ Zhang and Z.-H.\ Huang},
+ {\em A nonmonotone smoothing-type algorithm for solving a system of equalities and inequalities},
+ Journal of Computational and Applied Mathematics, vol. 233, pp. 2312--2321, 2010.
+
+ \bibitem{saheya2019}
+  {\sc Saheya, B., Nguyen, C.T., Chen, J.-S.},
+   {\em Neural network based on systematically generated smoothing functions for absolute value equation},
+    J. Appl. Math. Comput., 2019
+
+ \bibitem{GuerraVazquez2001}
+ {\sc Guerra Vazquez, F., Gnzel, H., Jongen, H.T.},
+ {\em  On Logarithmic Smoothing of the Maximum Function},
+ Annals of Operations Research,vol.101,pp. 209-220, 2001.
+
+ \bibitem{Zang1980}
+ {\sc Israel Zang},
+ {\em A smoothing-out technique for min-max optimization},
+  Mathematical Programming, 19:61-77, 1980.
+
+ \end{thebibliography}
+
+
+ \end{document}
+
+
+
+
+
+
+
+
+
